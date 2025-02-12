@@ -1,0 +1,224 @@
+/* CSS @property rules represents a custom property registration */
+@property --progress-number {
+    inherits: false;
+    initial-value: 0;
+    syntax: '<integer>';
+};
+
+/* CSS Custom Property */
+:root{
+    --page-bg: #101010;
+    --progressbar-bg: #191919;
+    --progress-bg: #00e7ff;
+    --progressbar-number-color: #777777;
+    --progressbar-number-color-hover: #ffffff;
+    --duration: 1.5s;
+    --timing-function: cubic-bezier(0.8,2.2,0.3,0.3);
+}
+
+// SCSS Variable
+$page-bg: var(--page-bg);
+$progressbar-bg: var(--progressbar-bg);
+$progress-bg: var(--progress-bg);
+$number-color: var(--progressbar-number-color);
+$number-color-hover: var(--progressbar-number-color-hover);
+
+/* Reset CSS */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    font-size: 10px;
+    scrollbar-width: none;
+    &::-webkit-scrollbar{
+        width: 0;
+    }
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    background: $page-bg;
+}
+
+/* Container Style */
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    @media (min-width:839px) {
+        height: 100%;
+    }
+    &--column{
+        flex-direction: column;
+        overflow-x: auto;
+    }
+}
+
+/* Progressbar Card Style */
+.card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 15px;
+    background: linear-gradient(0deg, #1b1b1b,#222222,#1b1b1b);
+    cursor: pointer;
+    transition: transform linear .3s;
+    transition-property: box-shadow, transform;
+    &--block{
+        width: 25rem;
+        height: 30rem;
+        &:hover{
+            transform: translateY(-1rem);
+            .card__progressbar__number{
+                transform: scale(1.3);
+            }
+        }
+    }
+    &--horizontal{
+        width: 52rem;
+        height: 7rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        @media (max-width:500px) {
+            height: auto;
+        }
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+    &__progressbar{
+        position: relative;
+        display: flex;
+        align-items: center;
+        &--circle{
+            width: 15rem;
+            height: 15rem;
+            justify-content: center;
+        }
+        &--line{
+            width: 100%;
+            height: 100%;
+            justify-content: space-evenly;
+            @media (max-width:500px) {
+                flex-direction: column;
+                padding: 0.5rem 0;
+            }
+        }
+        &__number{
+            display: inline-flex;
+            align-items: center;
+            font-size: 4rem;
+            font-family: consolas;
+            font-weight: 600;
+            color: $number-color;
+            transform: scale(1);
+            transition: linear .3s;
+            transition-property: color, transform;
+            .number-holder{
+                counter-reset: pro_num var(--progress-number, 50);
+                animation: var(--duration, 1s) steps(var(--percent, 50)) var(--delay, 1s) forwards;
+                &:after {
+                    content: counter(pro_num);
+                }
+            }
+            .percent-icon{
+                font-size: 0.5em;
+                margin-left: 3px;
+            }
+        }
+    }
+    &:hover{
+        box-shadow: 0 15px 35px rgba($color: #000000, $alpha: 0.5);
+        .card__progressbar__number{
+            color: $number-color-hover;
+        }
+    }
+}
+
+/* Circle Progressbar Style */
+.circle-progressbar{
+    position: absolute;
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+    circle{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        stroke-width: 10px;
+        transform: translate(5px,5px);
+    }
+    &__percent{
+        --stroke-total-length: 440px;
+    }
+}
+
+/* Line Progressbar Style */
+.line-progressbar{
+    width: 40rem;
+    height: 3rem;
+    line{
+        stroke-width: 15px;
+    }
+    &__percent{
+        --stroke-total-length: 380px;
+    }
+}
+
+/* Line & Circle Progressbars Common Style */
+.circle-progressbar,
+.line-progressbar{
+    circle,
+    line{
+        fill: none;
+        stroke-linecap: round;
+    }
+    &__path{
+        stroke: $progressbar-bg;
+    }
+    &__percent{
+        stroke: $progress-bg;
+        stroke-dasharray: var(--stroke-total-length);
+        stroke-dashoffset: var(--stroke-total-length);
+        animation: var(--duration, 1s) var(--timing-function, ease-in) var(--delay, 1s) forwards;
+    }
+}
+
+/* On Scroll Animation Start Style */
+.card[data-appear="in"]{
+    .circle-progressbar,
+    .line-progressbar{
+        &__percent{
+            animation-name: progress;
+        }
+    }
+    .number-holder{
+        animation-name: count_progress;
+    }
+}
+
+/* Progressbar Animation Style */
+@keyframes progress{
+    0%{
+        stroke-dashoffset: var(--stroke-total-length);
+    }
+    100% {
+        stroke-dashoffset: calc(var(--stroke-total-length) - ((var(--stroke-total-length) * var(--percent, 50)) / 100));
+    }
+}
+
+/* Progressbar Counter Animation Style */
+@keyframes count_progress {
+    to {--progress-number: var(--percent, 50);}
+}
