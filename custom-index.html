@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Progress Bar | Only HTML5 & CSS3</title>
+    <!-- Favicon Link -->
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        circle-progressbar{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        line-progressbar{
+            width: 40rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body> 
+    <!-- Container Section -->
+    <section class="container">
+        <!-- Card (type="block") Section -->
+        <div class="card card--block">
+            <div class="card__progressbar card__progressbar--circle" style="--progress-number: 80; --percent: 80; --delay: 1s;">
+                <circle-progressbar></circle-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+        <!-- Card (type="block") Section -->
+        <div class="card card--block">
+            <div class="card__progressbar card__progressbar--circle" style="--progress-number: 67; --percent: 67; --delay: 1.2s;">
+                <circle-progressbar></circle-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+        <!-- Card (type="block") Section -->
+        <div class="card card--block">
+            <div class="card__progressbar card__progressbar--circle" style="--progress-number: 50; --percent: 50; --delay: 1.3s;">
+                <circle-progressbar></circle-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+    <!-- Container Section -->
+    <section class="container container--column">
+        <!-- Card (type="horizontal") Section -->
+        <div class="card card--horizontal">
+            <div class="card__progressbar card__progressbar--line" style="--progress-number: 90; --percent: 90; --delay: 4s;">
+                <line-progressbar></line-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+        <!-- Card (type="horizontal") Section -->
+        <div class="card card--horizontal">
+            <div class="card__progressbar card__progressbar--line" style="--progress-number: 70; --percent: 70; --delay: 4.2s;">
+                <line-progressbar></line-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+        <!-- Card (type="horizontal") Section -->
+        <div class="card card--horizontal">
+            <div class="card__progressbar card__progressbar--line" style="--progress-number: 40; --percent: 40; --delay: 4.3s;">
+                <line-progressbar></line-progressbar>
+                <h1 class="card__progressbar__number">
+                    <span class="number-holder"></span>
+                    <span class="percent-icon">%</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
